@@ -2,6 +2,7 @@ import 'package:bytebank_armazen_interno/models/contact.dart';
 import 'package:bytebank_armazen_interno/screens/contact_form.dart';
 import 'package:flutter/material.dart';
 
+import '../components/progress.dart';
 import '../database/dao/contact_dao.dart';
 
 class ContactsList extends StatefulWidget {
@@ -21,7 +22,7 @@ class _ContactsListState extends State<ContactsList> {
         title: const Text("Transfer"),
       ),
       body: FutureBuilder(
-        future: _dao.findAll(),
+        future: Future.delayed(const Duration(seconds: 1)).then((value) => _dao.findAll()),
         builder: (context, snapshot) {
           final List<Contact>? contacts = snapshot.data as List<Contact>?;
           switch(snapshot.connectionState){
@@ -30,16 +31,7 @@ class _ContactsListState extends State<ContactsList> {
               break;
             case ConnectionState.waiting:
               //Esperando o Future carregar
-              Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(),
-                      Text('Carregando...')
-                    ],
-                  )
-              );
+              return const Progress();
               break;
             case ConnectionState.active:
               //mostra tudo que foi carregado até o momento
