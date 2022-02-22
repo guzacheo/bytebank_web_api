@@ -1,12 +1,13 @@
 import 'package:bytebank_armazen_interno/components/centered_message.dart';
-import 'package:bytebank_armazen_interno/database/webclient.dart';
 import 'package:flutter/material.dart';
 
 import '../components/progress.dart';
+import '../http/webclients/transaction_webclient.dart';
 import '../models/transactions.dart';
 
 class TransactionsList extends StatelessWidget {
-  const TransactionsList({Key? key}) : super(key: key);
+  TransactionsList({Key? key}) : super(key: key);
+  final TransactionWebClient _webClient = TransactionWebClient();
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class TransactionsList extends StatelessWidget {
         title: const Text('Transactions'),
       ),
       body: FutureBuilder<List<Transaction>>(
-        future: Future.delayed(const Duration(seconds: 1)).then((value) => findAll()),
+        future: Future.delayed(const Duration(seconds: 1)).then((value) => _webClient.findAll()),
         builder: (context, snapshot) {
           final List<Transaction>? transactions = snapshot.data;
 
@@ -53,10 +54,10 @@ class TransactionsList extends StatelessWidget {
                   itemCount: transactions.length,
                 );
               } else {
-                return CenteredMessage('Unknown Error...');
+                return const CenteredMessage('Unknown Error...');
               }
             break;
-          } return CenteredMessage('Unknown error...');
+          } return const CenteredMessage('Unknown error...');
         },
       ),
       floatingActionButton: FloatingActionButton(onPressed: () {  }, child: const Icon(Icons.add)
