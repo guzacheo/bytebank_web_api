@@ -1,15 +1,10 @@
-import 'package:bytebank_armazen_interno/components/centered_message.dart';
 import 'package:bytebank_armazen_interno/screens/dashboard.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'database/webclient.dart';
-
 
 void main() {
   runApp(const BytebankApp());
-  findAll();
-  findAll().then((transactions) => print('new transactions $transactions'));
   }
 
 

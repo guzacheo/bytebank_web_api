@@ -59,6 +59,9 @@ class TransactionsList extends StatelessWidget {
           } return CenteredMessage('Unknown error...');
         },
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {  }, child: const Icon(Icons.add)
+
+      ),
     );
   }
 }
