@@ -28,6 +28,13 @@ class TransactionWebClient {
         // a senha do servidor é padrao 1000, mas com o "'pasword': password" ao inves de "'pasword': '1000'", a senha digitada no app deve ser 1000
         headers: {'Content-type': 'application/json', 'password': password},
         body: transactionJson);
+
+    if(response.statusCode == 400){
+      throw Exception("There was an error submitting the transaction...");
+    }
+    if(response.statusCode == 401){
+      throw Exception("There was an error during authentication...");
+    }
     return Transaction.fromJson(jsonDecode(response.body));
   }
 
