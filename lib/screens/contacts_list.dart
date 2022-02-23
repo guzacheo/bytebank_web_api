@@ -34,7 +34,6 @@ class _ContactsListState extends State<ContactsList> {
               case ConnectionState.waiting:
                 //Esperando o Future carregar
                 return const Progress();
-                break;
               case ConnectionState.active:
                 //mostra tudo que foi carregado até o momento
                 //usado para mostrar progresso de download, por exemplo

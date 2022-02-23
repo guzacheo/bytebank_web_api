@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:http_interceptor/http/interceptor_contract.dart';
 import 'package:http_interceptor/models/request_data.dart';
 import 'package:http_interceptor/models/response_data.dart';

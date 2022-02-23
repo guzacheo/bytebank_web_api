@@ -6,7 +6,7 @@ import '../models/transactions.dart';
 
 class TransactionForm extends StatefulWidget {
   final Contact contact;
-  TransactionForm(this.contact);
+  const TransactionForm(this.contact, {Key? key}) : super(key: key);
 
   @override
   _TransactionFormState createState() => _TransactionFormState();
@@ -20,7 +20,7 @@ class _TransactionFormState extends State<TransactionForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('New transaction'),
+        title: const Text('New transaction'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -67,9 +67,7 @@ class _TransactionFormState extends State<TransactionForm> {
                           Transaction(value!, widget.contact);
                       _webClient.save(transactionCreated).then(
                         (transactionReceived) {
-                          if (transactionReceived != null) {
-                            Navigator.pop(context);
-                          }
+                          Navigator.pop(context);
                         },
                       );
                     },

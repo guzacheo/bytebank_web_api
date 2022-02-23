@@ -1,7 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:http/http.dart';
 
+// ignore: unused_import
 import '../../models/contact.dart';
 import '../../models/transactions.dart';
 import '../webclient.dart';
@@ -28,7 +31,6 @@ class TransactionWebClient {
         headers: {'Content-type': 'application/json', 'password': '1000'},
         body: transactionJson);
     return Transaction.fromJson(jsonDecode(response.body));
-    ;
   }
 
   // List<Transaction> _toTransactions(Response response) {
@@ -54,14 +56,14 @@ class TransactionWebClient {
   //   return transactions;
   // }
 
-  Map<String, dynamic> _toMap(Transaction transaction) {
-    final Map<String, dynamic> transactionMap = {
-      'value': transaction.value,
-      'contact': {
-        'name': transaction.contact.name,
-        'accountNumber': transaction.contact.accountNumber,
-      }
-    };
-    return transactionMap;
-  }
+  // Map<String, dynamic> _toMap(Transaction transaction) {
+  //   final Map<String, dynamic> transactionMap = {
+  //     'value': transaction.value,
+  //     'contact': {
+  //       'name': transaction.contact.name,
+  //       'accountNumber': transaction.contact.accountNumber,
+  //     }
+  //   };
+  //   return transactionMap;
+  // }
 }

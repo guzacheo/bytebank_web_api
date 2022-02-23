@@ -1,4 +1,3 @@
-import 'package:bytebank_armazen_interno/components/transaction_auth_dialog.dart';
 import 'package:bytebank_armazen_interno/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 

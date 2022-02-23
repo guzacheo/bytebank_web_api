@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 
 class TransactionAuthDialog extends StatelessWidget {
   const TransactionAuthDialog({Key? key}) : super(key: key);

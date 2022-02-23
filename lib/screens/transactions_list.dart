@@ -56,7 +56,6 @@ class TransactionsList extends StatelessWidget {
               } else {
                 return const CenteredMessage('Unknown Error...');
               }
-            break;
           } return const CenteredMessage('Unknown error...');
         },
       ),
