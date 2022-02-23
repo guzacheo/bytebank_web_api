@@ -1,3 +1,4 @@
+import 'package:bytebank_armazen_interno/components/transaction_auth_dialog.dart';
 import 'package:flutter/material.dart';
 
 import '../http/webclients/transaction_webclient.dart';
@@ -6,6 +7,7 @@ import '../models/transactions.dart';
 
 class TransactionForm extends StatefulWidget {
   final Contact contact;
+
   const TransactionForm(this.contact, {Key? key}) : super(key: key);
 
   @override
@@ -57,23 +59,27 @@ class _TransactionFormState extends State<TransactionForm> {
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
                 child: SizedBox(
-                  width: double.maxFinite,
-                  child: ElevatedButton(
-                    child: const Text('Transfer'),
-                    onPressed: () {
-                      final double? value =
-                          double.tryParse(_valueController.text);
-                      final transactionCreated =
-                          Transaction(value!, widget.contact);
-                      _webClient.save(transactionCreated).then(
-                        (transactionReceived) {
-                          Navigator.pop(context);
-                        },
-                      );
-                    },
-                  ),
+                    width: double.maxFinite,
+                    child: ElevatedButton(
+                      child: const Text('Transfer'),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (dialogContext) => TransactionAuthDialog(
+                            onConfirm: (String password) {
+                              final double? value = double.tryParse(_valueController.text);
+                              final transactionCreated = Transaction(value!, widget.contact);
+                              _webClient.save(transactionCreated, password).then((transactionReceived) {
+                                Navigator.pop(context);
+                              });
+                              debugPrint(password);
+                            },
+                          ),
+                        );
+                      },
+                    ),
                 ),
-              )
+              ),
             ],
           ),
         ),

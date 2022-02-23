@@ -12,33 +12,33 @@ class Dashboard extends StatelessWidget {
         title: const Text("Dashboard"),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset('images/bytebank_logo.png'),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                _FeatureItem(
-                  "Transfer",
-                  Icons.monetization_on,
-                  onClick: () => _showContactsList(context),
-                ),
-                _FeatureItem(
-                  "Transaction Feed",
-                  Icons.description,
-                  onClick: () => _showTransactionsList(context),
-                ),
-              ],
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset('images/bytebank_logo.png'),
             ),
-          ),
-        ],
-      ),
-    );
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  _FeatureItem(
+                    "Transfer",
+                    Icons.monetization_on,
+                    onClick: () => _showContactsList(context),
+                  ),
+                  _FeatureItem(
+                    "Transaction Feed",
+                    Icons.description,
+                    onClick: () => _showTransactionsList(context),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
   }
 }
 

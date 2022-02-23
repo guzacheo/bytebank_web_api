@@ -11,24 +11,22 @@ import '../webclient.dart';
 
 class TransactionWebClient {
   Future<List<Transaction>> findAll() async {
-    final Response response =
-        await client.get(baseUrl).timeout(const Duration(seconds: 5));
+
+    final Response response = await client.get(baseUrl).timeout(const Duration(seconds: 5));
     final List<dynamic> decodedJason = jsonDecode(response.body);
-
-    print('decoded Json: $decodedJason');
-
     final List<dynamic> decodedJson = jsonDecode(response.body);
     //map itera o decodedjson, substituindo o for abaixo e o toList() converte de Iterable para List
-    final List<Transaction> transactions =
-    decodedJson.map((dynamic json) => Transaction.fromJson(json)).toList();
+    final List<Transaction> transactions = decodedJson.map((dynamic json) => Transaction.fromJson(json)).toList();
+
     //converter o Json
     return transactions;
   }
 //
-  Future<Transaction> save(Transaction transaction) async {
+  Future<Transaction> save(Transaction transaction, String password) async {
     final String transactionJson = jsonEncode(transaction.toJson());
     final Response response = await client.post(baseUrl,
-        headers: {'Content-type': 'application/json', 'password': '1000'},
+        // a senha do servidor é padrao 1000, mas com o "'pasword': password" ao inves de "'pasword': '1000'", a senha digitada no app deve ser 1000
+        headers: {'Content-type': 'application/json', 'password': password},
         body: transactionJson);
     return Transaction.fromJson(jsonDecode(response.body));
   }
