@@ -1,4 +1,3 @@
-import 'package:bytebank_armazen_interno/components/transaction_auth_dialog.dart';
 import 'package:bytebank_armazen_interno/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +5,6 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(const BytebankApp());
   }
-
 
 class BytebankApp extends StatelessWidget {
   const BytebankApp({Key? key}) : super(key: key);
