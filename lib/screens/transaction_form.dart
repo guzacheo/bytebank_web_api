@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:bytebank_armazen_interno/components/transaction_auth_dialog.dart';
 import 'package:flutter/material.dart';
 
