@@ -6,7 +6,9 @@ import 'interceptors/logging_interceptor.dart';
 
 final Uri baseUrl = Uri.parse('http://192.168.0.62:8080/transactions');
 final Client client =
-    InterceptedClient.build(interceptors: [LoggingInterceptor()]);
+    InterceptedClient.build(interceptors: [LoggingInterceptor()],
+    //timeout que serv como padrao para todas as chamadas
+    requestTimeout: const Duration(seconds: 5));
 
 
 

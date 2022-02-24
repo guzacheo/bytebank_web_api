@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'dart:async';
+
 import 'package:bytebank_armazen_interno/components/transaction_auth_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -101,7 +103,22 @@ class _TransactionFormState extends State<TransactionForm> {
           builder: (contextDialog) {
             return FailureDialog(e.message);
           });
-    }, test: (e) => e is Exception);
+    }, test: (e) => e is HttpException).catchError((e) {
+      showDialog(
+          context: context,
+          builder: (contextDialog) {
+            return FailureDialog("Timeout submitting the transaction...");
+          });
+    }, test: (e) => e is TimeoutException).catchError(
+      (e) {
+        showDialog(
+          context: context,
+          builder: (contextDialog) {
+            return FailureDialog("Unknown Error...");
+          },
+        );
+      },
+    );
 
     if (transaction != null) {
       await showDialog(
