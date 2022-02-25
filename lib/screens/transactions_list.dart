@@ -54,14 +54,11 @@ class TransactionsList extends StatelessWidget {
                   itemCount: transactions.length,
                 );
               } else {
-                return const CenteredMessage('Unknown Error...');
+                return const CenteredMessage("No transactions registered",icon : Icons.warning);
               }
           } return const CenteredMessage('Unknown error...');
         },
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {  }, child: const Icon(Icons.add)
-
-      ),
-    );
+      );
   }
 }

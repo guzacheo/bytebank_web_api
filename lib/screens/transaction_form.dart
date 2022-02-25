@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:bytebank_armazen_interno/components/transaction_auth_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 import '../components/response_dialog.dart';
 import '../http/webclients/transaction_webclient.dart';
@@ -22,9 +23,11 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final TextEditingController _valueController = TextEditingController();
   final TransactionWebClient _webClient = TransactionWebClient();
+  final String transactionId = const Uuid().v4();
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('transaction form id: $transactionId');
     return Scaffold(
       appBar: AppBar(
         title: const Text('New transaction'),
@@ -70,8 +73,11 @@ class _TransactionFormState extends State<TransactionForm> {
                     onPressed: () {
                       final double? value =
                           double.tryParse(_valueController.text);
-                      final transactionCreated =
-                          Transaction(value, widget.contact);
+                      final transactionCreated = Transaction(
+                        transactionId,
+                        value,
+                        widget.contact,
+                      );
                       showDialog(
                         context: context,
                         builder: (dialogContext) => TransactionAuthDialog(
@@ -123,9 +129,11 @@ class _TransactionFormState extends State<TransactionForm> {
         await _webClient.save(transactionCreated, password).catchError((e) {
       _showFailureDialog(context, message: e.message);
     }, test: (e) => e is HttpException).catchError((e) {
-      _showFailureDialog(context, message: "Timeout submitting the transaction");
-    }, test: (e) => e is TimeoutException).catchError((e) {
-      _showFailureDialog(context);
+      _showFailureDialog(context,
+          message: "Timeout submitting the transaction");
+    }, test: (e) => e is TimeoutException).catchError(
+      (e) {
+        _showFailureDialog(context);
       },
     );
     return transaction;

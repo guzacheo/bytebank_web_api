@@ -26,6 +26,9 @@ class TransactionWebClient {
 //
   Future<Transaction?> save(Transaction transaction, String password) async {
     final String transactionJson = jsonEncode(transaction.toJson());
+
+    await Future.delayed(const Duration(seconds: 10));
+
     final Response response = await client.post(baseUrl,
         // a senha do servidor é padrao 1000, mas com o "'pasword': password" ao inves de "'pasword': '1000'", a senha digitada no app deve ser 1000
         headers: {'Content-type': 'application/json', 'password': password},
@@ -34,12 +37,21 @@ class TransactionWebClient {
     if (response.statusCode == 200) {
       return Transaction.fromJson(jsonDecode(response.body));
     }
-    throw HttpException(_statusCodeResponses[response.statusCode]!);
+    throw HttpException(_getMessage(500));
+    // throw HttpException(_getMessage(response.statusCode));
+  }
+
+  String _getMessage(int statusCode) {
+    if (_statusCodeResponses.containsKey(statusCode)) {
+      return _statusCodeResponses[statusCode]!;
+    }
+    return 'Unknown Error';
   }
 
   final Map<int, String> _statusCodeResponses = {
     400: "There was an error submitting the transaction...",
     401: "There was an error during authentication...",
+    409: "This transaction already exists",
   };
 // List<Transaction> _toTransactions(Response response) {
 //   // final List<dynamic> decodedJson = jsonDecode(response.body);
