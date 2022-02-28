@@ -1,6 +1,9 @@
-import 'package:bytebank_armazen_interno/screens/contacts_list.dart';
-import 'package:bytebank_armazen_interno/screens/transactions_list.dart';
+
+import 'package:bytebank_web_api/screens/transactions_list.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+
+import 'contacts_list.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -89,6 +92,8 @@ class _FeatureItem extends StatelessWidget {
 }
 
 void _showContactsList(BuildContext context) {
+// usado para instalar o crashlytics do firebase
+  // FirebaseCrashlytics.instance.crash();
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (context) => const ContactsList(),

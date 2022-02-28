@@ -1,6 +1,6 @@
-import 'package:bytebank_armazen_interno/components/centered_message.dart';
 import 'package:flutter/material.dart';
 
+import '../components/centered_message.dart';
 import '../components/progress.dart';
 import '../http/webclients/transaction_webclient.dart';
 import '../models/transactions.dart';

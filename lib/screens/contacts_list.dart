@@ -1,10 +1,10 @@
-import 'package:bytebank_armazen_interno/models/contact.dart';
-import 'package:bytebank_armazen_interno/screens/contact_form.dart';
-import 'package:bytebank_armazen_interno/screens/transaction_form.dart';
+import 'package:bytebank_web_api/screens/transaction_form.dart';
 import 'package:flutter/material.dart';
 
 import '../components/progress.dart';
 import '../database/dao/contact_dao.dart';
+import '../models/contact.dart';
+import 'contact_form.dart';
 
 class ContactsList extends StatefulWidget {
   const ContactsList({Key? key}) : super(key: key);
