@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,7 +33,7 @@ class CounterView extends StatelessWidget {
         .textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Nosso Contador'),
+        title: const Text('Counter'),
       ),
       body: Center(
         // Desta forma o texto é atualizado

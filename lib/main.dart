@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:bytebank_web_api/screens/counter.dart';
 import 'package:bytebank_web_api/screens/dashboard.dart';
+import 'package:bytebank_web_api/screens/name.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/theme.dart';
 
@@ -25,6 +26,14 @@ void main() async {
   }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
 }
 
+class LogObserver extends BlocObserver{
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    debugPrint("${bloc.runtimeType} > $change");
+    super.onChange(bloc, change);
+  }
+}
+
 class BytebankApp extends StatelessWidget {
   const BytebankApp({Key? key}) : super(key: key);
 
@@ -32,7 +41,7 @@ class BytebankApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: byteBankTheme,
-      home: CounterPage(),
+      home: const DashboardContainer(),
     );
   }
 }

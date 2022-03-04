@@ -188,6 +188,7 @@ class _TransactionFormState extends State<TransactionForm> {
   void _showFailureDialog(BuildContext context,
       {String message = "Unknown Error..."}) {
     final snackBar = SnackBar(content: Text(message),);
+    // ignore: deprecated_member_use
     _scaffoldKey.currentState?.showSnackBar(snackBar);
     // showDialog(
     //     context: context,

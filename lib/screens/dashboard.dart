@@ -1,47 +1,67 @@
-
+import 'package:bytebank_web_api/screens/name.dart';
 import 'package:bytebank_web_api/screens/transactions_list.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'contacts_list.dart';
 
-class Dashboard extends StatelessWidget {
-  const Dashboard({Key? key}) : super(key: key);
+class DashboardContainer extends StatelessWidget {
+  const DashboardContainer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => NameCubit('Gustavo'),
+      child: DashboardView(),
+    );
+  }
+}
+
+class DashboardView extends StatelessWidget {
+  const DashboardView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dashboard"),
+        // misturando blocbuilder (observer de eventos) com UI - Não recomendado
+        title: BlocBuilder<NameCubit, String>(
+          builder: (context, state) => Text("Welcome $state"),
+        )
       ),
       body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset('images/bytebank_logo.png'),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset('images/bytebank_logo.png'),
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                _FeatureItem(
+                  "Transfer",
+                  Icons.monetization_on,
+                  onClick: () => _showContactsList(context),
+                ),
+                _FeatureItem(
+                  "Transaction Feed",
+                  Icons.description,
+                  onClick: () => _showTransactionsList(context),
+                ),
+                _FeatureItem(
+                  "Change Name",
+                  Icons.person_outline,
+                  onClick: () => _showChangeName(context),
+                ),
+              ],
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  _FeatureItem(
-                    "Transfer",
-                    Icons.monetization_on,
-                    onClick: () => _showContactsList(context),
-                  ),
-                  _FeatureItem(
-                    "Transaction Feed",
-                    Icons.description,
-                    onClick: () => _showTransactionsList(context),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -97,6 +117,17 @@ void _showContactsList(BuildContext context) {
   Navigator.of(context).push(
     MaterialPageRoute(
       builder: (context) => const ContactsList(),
+    ),
+  );
+}
+
+void _showChangeName(BuildContext blocContext) {
+  Navigator.of(blocContext).push(
+    MaterialPageRoute(
+      builder: (context) => BlocProvider.value(
+        value: BlocProvider.of<NameCubit>(blocContext),
+        child: const NameContainer(),
+      ),
     ),
   );
 }
